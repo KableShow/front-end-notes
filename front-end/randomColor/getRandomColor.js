@@ -13,7 +13,8 @@ function getColor(option){
 		str = str.toString().replace(' ','');
 		if(/^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$/.test(str)){
 			return str.match(/\d+/g).reduce(function(a,b){
-				return a + parseInt(b).toString(16)
+                var s = parseInt(b).toString(16);
+				return a + (s.length === 1?'0'+s:s);
 			},'#')
 		}
 
@@ -28,11 +29,11 @@ function getColor(option){
 			if(/^#[\d | a-f]{3}$/i.test(str))
 				return '#' + repeatStr(str.slice(1),2);
 			if(!/^#[\d | a-f]{6}$/.test(str)){
-				return new Error('wrong option params: HEX color is wrong.')
+				throw new Error('wrong option params: HEX color is wrong.')
 			}
 			return str;
 		}
-		return new Error('wrong option params: range color is wrong.')
+		throw new Error('wrong option params: range color is wrong.')
 	}
 
 	// 十进制数字转换成HEX格式的颜色 (15) => '#00000f'
