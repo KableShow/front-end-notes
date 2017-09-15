@@ -1,4 +1,4 @@
-function getColor(option){
+function getRandomColor(option){
 	// 重复字符串 ('abcd',2) => 'aabbccdd'
 	function repeatStr(str,num){
 		var arr = str.split('');
@@ -11,7 +11,7 @@ function getColor(option){
 	// 支持 rgb => HEX , HEX => HEX , colorname => HEX;
 	function toHEX(str){
 		str = str.toString().replace(' ','');
-		if(/^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$/.test(str)){
+		if(/^rgb\(\d{1,3},\d{1,3},\d{1,3}\)$/i.test(str)){
 			return str.match(/\d+/g).reduce(function(a,b){
                 var s = parseInt(b).toString(16);
 				return a + (s.length === 1?'0'+s:s);
@@ -28,7 +28,7 @@ function getColor(option){
 		if(str.charAt(0) === '#'){
 			if(/^#[\d | a-f]{3}$/i.test(str))
 				return '#' + repeatStr(str.slice(1),2);
-			if(!/^#[\d | a-f]{6}$/.test(str)){
+			if(!/^#[\d | a-f]{6}$/i.test(str)){
 				throw new Error('wrong option params: HEX color is wrong.')
 			}
 			return str;
